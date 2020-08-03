@@ -51,6 +51,7 @@ if response == "Y" or response == "y":
 		s = smtplib.SMTP(host='smtp-mail.outlook.com', port=587)
 		s.starttls()
 		s.login(MY_ADDRESS,PASSWORD)
+		outputFile = open("EmailsSent.txt", "a")
 
 		for name in emails:
 			msg = MIMEMultipart() 		#create a message
@@ -87,10 +88,15 @@ if response == "Y" or response == "y":
 			#s.sendmail(msg)
 			s.sendmail(MY_ADDRESS, [email], msg.as_string())
 			print('Sent to ' + name)
+			outputFile.write("Sent to " + name)
+
 			del msg
+
+			os.rename(filename, "SentFiles/" + name+'.pdf')
 
 		#Terminate SMTP session
 		s.quit()
+		outputFile.close()
 else:
 	sys.exit()
 
