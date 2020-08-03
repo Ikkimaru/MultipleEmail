@@ -27,7 +27,7 @@ MESSAGE_SUBJECT = "This is a test"
 #####################################################################
 
 def get_emails_from_files(directory):
-	files = os.listdir(directory)
+	files = sorted(os.listdir(directory))
 	for item in files:
 		if item.endswith(".pdf"):
 			emails.append(os.path.splitext(item)[0]) #Remove extension and add to list
